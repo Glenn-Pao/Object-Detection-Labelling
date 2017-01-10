@@ -1,0 +1,26 @@
+==================================================================================
+Help Section
+==================================================================================
+Labelling in KITTI Object Detection format
+
+Follow the instructions given to you.
+At the end of the entry, the computer will
+reflect your input.
+
+Check that the input is correct.
+If incorrect, you may re-enter the entry.
+Otherwise, the computer will write the label
+into the text file.
+
+The computer will ask you for the information
+in a sequential order.
+
+1) Type of object  (eg. Car, Truck)
+2) Truncated value (of the object leaving defined image boundaries)
+3) Occuluded value (whether the object is behind something)
+4) Alpha value     (observation angle of object, ranges from -pi to pi)
+5) Bounding boxes  (left, top, right, bottom pixel coordinates)
+6) Dimensions      (height, width, length in meters)
+7) Location        (object location in x,y,z camera coordinates in meters)
+8) Rotation-Y      (value of camera's rotation on Y-axis, between -pi and pi)
+==================================================================================
