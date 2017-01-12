@@ -1,8 +1,8 @@
 =========================================
 Welcome to KITTI Object Detection Labelling!
 =========================================
-1. Label Creation for 1 Image
-2. Label Creation for Multiple Images
+1. Single Label File Creation
+2. Multi Label File Creation for Same Entry
 3. Help
 4. Exit
 Enter a number.

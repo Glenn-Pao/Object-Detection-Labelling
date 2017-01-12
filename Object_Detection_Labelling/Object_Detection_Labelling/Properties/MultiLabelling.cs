@@ -1,10 +1,8 @@
 ﻿using System;
 using System.IO;
 
-public class SingleLabelling
+public class MultiLabelling
 {
-	int entryNum;
-
 	//All the necessary variables
 	float temptruncated;	//truncation angle
 	int tempoccluded;		//occlusion value
@@ -27,115 +25,109 @@ public class SingleLabelling
 	float templocationZ;
 	float temprotationY;
 
-	public void SingleImageLabelling ()
+	public void MultiLabellingFiles ()
 	{
 		FindFile file = new FindFile();
 		Data newData = new Data ();	//create the default constructor of Data
 
 		//find the file and open it
-		file.Find ();
+		file.CreateMultipleFiles ();
 
-		//write to text file
-		//Hook a write to text file, allow for appending of data
-		TextWriter writer = new StreamWriter(file.targetLabelFile, true);
+		//display console instruction of data type
+		DefineType ();
+		newData.setType(Console.ReadLine ());							//set the new type
+
+		//display console instruction of truncation
+		DefineTruncate ();
+		newData.setTruncated ((float)temptruncated);						//set the truncate amount
+
+		//display console instruction of occlusion
+		DefineOccluded ();
+		newData.setOcculuded (tempoccluded);						//set the occlusion amount
+
+		//display console instruction of alpha
+		DefineAlpha ();
+		newData.setAlpha (tempalpha);						//set the alpha amount
 
 
-		DefineEntryNums ();		//get the number of entries to be put into this file
 
-		for (int i = 0; i < entryNum; i++) 
+		//display console instruction of left coordinate
+		DefineBBoxLeft ();
+		newData.setBBoxLeft (tempbboxLeft);						//set the left coordinate
+
+		//display console instruction of top coordinate
+		DefineBBoxTop ();
+		newData.setBBoxTop (tempbboxTop);						//set the top coordinate
+
+		//display console instruction of right coordinate
+		DefineBBoxRight ();
+		newData.setBBoxRight (tempbboxRight);						//set the right coordinate
+
+		//display console instruction of bottom coordinate
+		DefineBBoxBottom ();
+		newData.setBBoxBottom (tempbboxBottom);						//set the bottom coordinate
+
+
+
+		//display console instruction of dimension height
+		DefineDimensionHeight ();
+		newData.setDimensionHeight (tempdimensionHeight);			//set the dimension height
+
+		//display console instruction of dimension width
+		DefineDimensionWidth ();
+		newData.setDimensionWidth (tempdimensionWidth);			//set the dimension width
+
+		//display console instruction of dimension length
+		DefineDimensionLength ();
+		newData.setDimensionLength (tempdimensionLength);			//set the dimension length
+
+
+		//display console instruction of camera location X
+		DefineCamLocX ();
+		newData.setLocationX (templocationX);			//set the camera location X
+
+		//display console instruction of camera location Y
+		DefineCamLocY ();
+		newData.setLocationY (templocationY);			//set the camera location Y
+
+		//display console instruction of camera location Z
+		DefineCamLocZ ();
+		newData.setLocationZ (templocationZ);			//set the camera location Z
+
+		DefineRotY ();
+		newData.setRotationY (temprotationY);			//set the rotation Y
+
+
+		//review the user's input
+		ReviewOrder ();
+		Console.WriteLine ("Object Name      : " + newData.getType ());
+		Console.WriteLine ("Truncation       : " + newData.getTruncated ());
+		Console.WriteLine ("Occlusion        : " + newData.getOcculuded ());
+		Console.WriteLine ("Observation Angle: " + newData.getAlpha ());
+
+
+		Console.WriteLine ("BBox Left Coord  : " + newData.getBBoxLeft ());
+		Console.WriteLine ("BBox Top Coord   : " + newData.getBBoxTop ());
+		Console.WriteLine ("BBox Right Coord : " + newData.getBBoxRight ());
+		Console.WriteLine ("BBox Bottom Coord: " + newData.getBBoxBottom ());
+
+		Console.WriteLine ("3D Object Height : " + newData.getDimensionHeight ());
+		Console.WriteLine ("3D Object Width  : " + newData.getDimensionWidth ());
+		Console.WriteLine ("3D Object Length : " + newData.getDimensionLength ());
+
+		Console.WriteLine ("Camera Location X: " + newData.getLocationX ());
+		Console.WriteLine ("Camera Location Y: " + newData.getLocationY ());
+		Console.WriteLine ("Camera Location Z: " + newData.getLocationZ ());
+		Console.WriteLine ("Camera Rotation Y: " + newData.getRotationY ());
+
+		ConfirmOrder ();		//confirm the final order
+
+		for (int i = 1; i < file.numFiles + 1; i++) 
 		{
-			Console.WriteLine ("=========================================");
-			Console.WriteLine ("Entry " + entryNum);
-
-			//display console instruction of data type
-			DefineType ();
-			newData.setType(Console.ReadLine ());							//set the new type
-
-			//display console instruction of truncation
-			DefineTruncate ();
-			newData.setTruncated ((float)temptruncated);						//set the truncate amount
-
-			//display console instruction of occlusion
-			DefineOccluded ();
-			newData.setOcculuded (tempoccluded);						//set the occlusion amount
-
-			//display console instruction of alpha
-			DefineAlpha ();
-			newData.setAlpha (tempalpha);						//set the alpha amount
-
-
-
-			//display console instruction of left coordinate
-			DefineBBoxLeft ();
-			newData.setBBoxLeft (tempbboxLeft);						//set the left coordinate
-
-			//display console instruction of top coordinate
-			DefineBBoxTop ();
-			newData.setBBoxTop (tempbboxTop);						//set the top coordinate
-
-			//display console instruction of right coordinate
-			DefineBBoxRight ();
-			newData.setBBoxRight (tempbboxRight);						//set the right coordinate
-
-			//display console instruction of bottom coordinate
-			DefineBBoxBottom ();
-			newData.setBBoxBottom (tempbboxBottom);						//set the bottom coordinate
-
-
-
-			//display console instruction of dimension height
-			DefineDimensionHeight ();
-			newData.setDimensionHeight (tempdimensionHeight);			//set the dimension height
-
-			//display console instruction of dimension width
-			DefineDimensionWidth ();
-			newData.setDimensionWidth (tempdimensionWidth);			//set the dimension width
-
-			//display console instruction of dimension length
-			DefineDimensionLength ();
-			newData.setDimensionLength (tempdimensionLength);			//set the dimension length
-
-
-			//display console instruction of camera location X
-			DefineCamLocX ();
-			newData.setLocationX (templocationX);			//set the camera location X
-
-			//display console instruction of camera location Y
-			DefineCamLocY ();
-			newData.setLocationY (templocationY);			//set the camera location Y
-
-			//display console instruction of camera location Z
-			DefineCamLocZ ();
-			newData.setLocationZ (templocationZ);			//set the camera location Z
-
-			DefineRotY ();
-			newData.setRotationY (temprotationY);			//set the rotation Y
-
-
-			//review the user's input
-			ReviewOrder ();
-			Console.WriteLine ("Entry " + entryNum);
-			Console.WriteLine ("Object Name      : " + newData.getType ());
-			Console.WriteLine ("Truncation       : " + newData.getTruncated ());
-			Console.WriteLine ("Occlusion        : " + newData.getOcculuded ());
-			Console.WriteLine ("Observation Angle: " + newData.getAlpha ());
-
-
-			Console.WriteLine ("BBox Left Coord  : " + newData.getBBoxLeft ());
-			Console.WriteLine ("BBox Top Coord   : " + newData.getBBoxTop ());
-			Console.WriteLine ("BBox Right Coord : " + newData.getBBoxRight ());
-			Console.WriteLine ("BBox Bottom Coord: " + newData.getBBoxBottom ());
-
-			Console.WriteLine ("3D Object Height : " + newData.getDimensionHeight ());
-			Console.WriteLine ("3D Object Width  : " + newData.getDimensionWidth ());
-			Console.WriteLine ("3D Object Length : " + newData.getDimensionLength ());
-
-			Console.WriteLine ("Camera Location X: " + newData.getLocationX ());
-			Console.WriteLine ("Camera Location Y: " + newData.getLocationY ());
-			Console.WriteLine ("Camera Location Z: " + newData.getLocationZ ());
-			Console.WriteLine ("Camera Rotation Y: " + newData.getRotationY ());
-
-			ConfirmOrder ();		//confirm the final order
+			string targetFile = file.targetLabelName + i + ".txt";
+			//write to text file
+			//Hook a write to text file, allow for appending of data
+			TextWriter writer = new StreamWriter(targetFile, true);
 
 			//write into text file
 			writer.WriteLine (newData.getType () + " " + newData.getTruncated () + " " + newData.getOcculuded () + " " + newData.getAlpha() 
@@ -143,27 +135,12 @@ public class SingleLabelling
 				+ " " + newData.getDimensionHeight() + " " + newData.getDimensionWidth() + " " + newData.getDimensionLength() 
 				+ " " + newData.getLocationX() + " " + newData.getLocationY() + " " + newData.getLocationZ() + " " + newData.getRotationY());
 
-			Reset ();
+			Console.WriteLine (targetFile + " data written..");
+
+			//close the text file
+			writer.Close ();
 		}
 
-		//close the text file
-		writer.Close ();
-	}
-	void DefineEntryNums()
-	{
-		Console.WriteLine ("=========================================");
-		Console.WriteLine (" Define the number of entries you want to add into this file.");
-		Console.WriteLine ("=========================================");
-
-
-		//Choose a number, attempt to parse the phrase typed in by user into int
-		if (!Int32.TryParse (Console.ReadLine (), out entryNum)) 
-		{
-			string error;
-			error = "Error: Invalid input. Try again.";
-
-			Console.WriteLine (error);
-		}
 	}
 	void DefineType()
 	{
@@ -896,28 +873,5 @@ public class SingleLabelling
 
 		//close the text file
 		writer.Close ();
-	}
-	void Reset()
-	{
-		temptruncated = 0f;
-		tempoccluded = 0;
-		tempalpha = 0f;
-
-		//bounding box coordinates
-		tempbboxLeft = 0f;
-		tempbboxTop = 0f;
-		tempbboxRight = 0f;
-		tempbboxBottom = 0f;
-
-		//dimensions of object
-		tempdimensionHeight = 0f;
-		tempdimensionWidth = 0f;
-		tempdimensionLength = 0f;
-
-		//location and rotation of object
-		templocationX = 0f;
-		templocationY = 0f;
-		templocationZ = 0f;
-		temprotationY = 0f;
 	}
 }

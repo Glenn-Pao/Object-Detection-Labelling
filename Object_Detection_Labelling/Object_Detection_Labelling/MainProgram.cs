@@ -5,43 +5,46 @@ public class MainProgram
 {
 	public void Run()
 	{
-		//run the main program here
-		//the welcome message
-		ReadTextFile ("welcome.txt");
-
-		int optionNum;
-		SingleLabelling sLabel = new SingleLabelling();
-
-		//Choose a number, attempt to parse the phrase typed in by user into int
-		if (!Int32.TryParse (Console.ReadLine (), out optionNum)) 
+		while (true) 
 		{
-			string error;
-			error = "Error: Invalid input. Try again.";
+			//run the main program here
+			//the welcome message
+			ReadTextFile ("welcome.txt");
 
-			Console.WriteLine (error);
-		}
+			int optionNum;
+			SingleLabelling sLabel = new SingleLabelling();
+			MultiLabelling mLabel = new MultiLabelling ();
 
-		//If number = 1, trigger single entry key in
-		if (optionNum == 1) 
-		{
-			sLabel.SingleImageLabelling ();
-		}
-		//If number = 2, trigger multiple entries key in
-		else if (optionNum == 2) 
-		{
-			Test ();
-		}
-		//If number = 3, trigger the help text
-		else if (optionNum == 3) 
-		{
-			ReadTextFile ("help.txt");
-		}
-		//If number = 4, break this loop
-		else if (optionNum == 4) 
-		{
-			//break;
-		}
+			//Choose a number, attempt to parse the phrase typed in by user into int
+			if (!Int32.TryParse (Console.ReadLine (), out optionNum)) 
+			{
+				string error;
+				error = "Error: Invalid input. Try again.";
 
+				Console.WriteLine (error);
+			}
+
+			//If number = 1, trigger single entry key in
+			if (optionNum == 1) 
+			{
+				sLabel.SingleImageLabelling ();
+			}
+			//If number = 2, trigger multiple entries key in
+			else if (optionNum == 2) 
+			{
+				mLabel.MultiLabellingFiles();
+			}
+			//If number = 3, trigger the help text
+			else if (optionNum == 3) 
+			{
+				ReadTextFile ("help.txt");
+			}
+			//If number = 4, break this loop
+			else if (optionNum == 4) 
+			{
+				break;
+			}
+		}
 	}
 
 	//the function to use when reading from text file and printing to console
